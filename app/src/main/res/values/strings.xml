@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Contando Goles</string>
+    <string name="action_settings">Settings</string>
+    <string name="hint_año">Año/Temporada</string>
+    <string name="hint_meta">Meta</string>
+    <string name="hint_rival">Rival</string>
+    <string name="hint_competencia">Competencia</string>
+    <string name="hint_goles">Goles Anotados</string>
+    <string name="btn_agregar">AGREGAR</string>
+    <string name="err_msg_año">Escribi año o temporada</string>
+    <string name="err_msg_meta">¡ Establece tu meta !</string>
+    <string name="err_msg_meta_number">¡ La meta solo pueden ser numeros. !</string>
+    <string name="err_msg_rival">Escribi tu rival</string>
+    <string name="err_msg_competencia">Escribi en que competencia anotaste</string>
+    <string name="err_msg_goles">Detalla la cantidad de goles que anotaste</string>
+</resources>

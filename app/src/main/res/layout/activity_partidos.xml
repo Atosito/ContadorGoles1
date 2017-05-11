@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:weightSum="1">
+
+        <com.example.tomi.databasegoles.Widget.RobotoTextView
+            android:id="@+id/tvAño"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/primary"
+            android:text="2018"
+            android:textAlignment="center"
+            android:textColor="@color/icons"
+            android:textSize="24dp"
+            app:typeface="roboto_medium" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+
+            <Space
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                />
+
+            <com.example.tomi.databasegoles.Widget.RobotoTextView
+                android:id="@+id/tvRival"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rival"
+                android:textAlignment="center"
+                app:typeface="roboto_medium" />
+
+            <com.example.tomi.databasegoles.Widget.RobotoTextView
+                android:id="@+id/tvCompetencia"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Competencia"
+                android:textAlignment="center"
+                app:typeface="roboto_medium" />
+
+            <Space
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                />
+
+            <com.example.tomi.databasegoles.Widget.RobotoTextView
+                android:id="@+id/tvGoles"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="Goles"
+                android:textAlignment="center"
+                app:typeface="roboto_medium" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/lvPartidos"
+            android:layout_width="match_parent"
+            android:layout_height="344dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="0.45" />
+
+        <Button
+            android:id="@+id/btnAgregar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:text="NUEVO PARTIDO"
+            android:textColor="@android:color/background_light" />
+    </LinearLayout>
+
+</RelativeLayout>
