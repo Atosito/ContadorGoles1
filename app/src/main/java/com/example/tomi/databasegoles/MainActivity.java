@@ -8,16 +8,22 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.tomi.databasegoles.DBHandler.DatabaseManager;
 import com.example.tomi.databasegoles.DBHandler.TemporadaHandler;
+import com.example.tomi.databasegoles.Data.Partido;
 import com.example.tomi.databasegoles.Data.Temporada;
 import com.example.tomi.databasegoles.Widget.RobotoTextView;
 import com.sdsmdg.tastytoast.TastyToast;
@@ -43,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 openActPartidos(position);
             }
         });
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         updateListView();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -75,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     private void addTemporada(){
 
         Intent intent = new Intent(this, PopUp1.class);
@@ -120,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.temporada_layout_list, parent, false);
             }
@@ -128,11 +137,59 @@ public class MainActivity extends AppCompatActivity {
             RobotoTextView tvGoles = (RobotoTextView) convertView.findViewById(R.id.tvGoles);
             RobotoTextView tvPartidos = (RobotoTextView) convertView.findViewById(R.id.tvPartidos);
             RobotoTextView tvMeta = (RobotoTextView) convertView.findViewById(R.id.tvMeta);
-            Temporada temporada = temporadas.get(position);
+            ImageView ivEditar = (ImageView) convertView.findViewById(R.id.ivEditar);
+            final Temporada temporada = temporadas.get(position);
             tvAño.setText(temporada.getAño());
             tvGoles.setText(temporada.getTotalgoles());
             tvPartidos.setText(temporada.getTotalpartidos());
             tvMeta.setText(temporada.getMeta());
+            ivEditar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    switch (v.getId()) {
+                        case R.id.ivEditar:
+
+                            android.widget.PopupMenu popup = new android.widget.PopupMenu(getApplicationContext(), v);
+                            popup.getMenuInflater().inflate(R.menu.popupmenu,
+                                    popup.getMenu());
+                            popup.show();
+                            popup.setOnMenuItemClickListener(new android.widget.PopupMenu.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem item) {
+
+                                    switch (item.getItemId()) {
+                                        case R.id.Editar:
+                                            updateTemporada(position);
+                                            TastyToast.makeText(getApplicationContext(), "Editar", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                                            onResume();
+
+                                            break;
+                                        case R.id.Borrar:
+                                            TemporadaHandler.delete(temporada);
+                                            TastyToast.makeText(getApplicationContext(), "Borrar", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                                            onResume();
+                                            break;
+
+                                        default:
+                                            break;
+                                    }
+
+                                    return true;
+                                }
+                            });
+
+                            break;
+
+                        default:
+                            break;
+                    }
+
+
+                }
+            });
+
             return convertView;
         }
     }
@@ -141,5 +198,12 @@ public class MainActivity extends AppCompatActivity {
 
         Adapter adapter = new Adapter(this, temporadas);
         this.listView.setAdapter(adapter);
+    }
+    public void updateTemporada(int index) {
+        Temporada temporada = temporadas.get(index);
+        Intent intent = new Intent(this, PopUp1.class);
+        intent.putExtra("temporada_", temporada);
+        startActivity(intent);
+
     }
 }

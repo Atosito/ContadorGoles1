@@ -13,6 +13,7 @@
             android:id="@+id/ivPartido"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="0.4"
             app:srcCompat="@drawable/ic_partido" />
 
@@ -46,6 +47,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
+            android:layout_gravity="center"
             android:paddingLeft="30dp"
             app:srcCompat="@drawable/ic_goles" />
 
@@ -61,6 +63,15 @@
             android:textAlignment="center"
             android:textSize="24sp"
             app:typeface="roboto_bold" />
+
+        <ImageView
+            android:id="@+id/ivEditar"
+            android:layout_width="22dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="false"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_menu_list" />
+
 
     </LinearLayout>
 

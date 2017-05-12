@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.method.HideReturnsTransformationMethod;
 
+import com.example.tomi.databasegoles.Data.Partido;
 import com.example.tomi.databasegoles.Data.Temporada;
 import com.example.tomi.databasegoles.MainActivity;
 import com.sdsmdg.tastytoast.TastyToast;
@@ -48,7 +49,7 @@ public class TemporadaHandler {
     }
 
 
-    public int updateTemporada(Temporada temporada){
+    public int edit(Temporada temporada){
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         int courseId;
         ContentValues values = new ContentValues();
@@ -58,6 +59,15 @@ public class TemporadaHandler {
         DatabaseManager.getInstance().closeDatabase();
 
         return courseId;
+    }
+    public int delete(Temporada temporada){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        int courseId;
+        courseId = (int) db.delete(Temporada.TABLE_NAME, "_id =?", new String[]{temporada.get_id()});
+        DatabaseManager.getInstance().closeDatabase();
+
+        return courseId;
+
     }
     public int updateTotales(Temporada temporada){
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();

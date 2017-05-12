@@ -85,6 +85,15 @@
         android:textSize="24sp"
         app:typeface="roboto_bold" />
 
+        <ImageView
+            android:id="@+id/ivEditar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.33"
+            android:adjustViewBounds="false"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_menu_list" />
+
     </LinearLayout>
 
 </LinearLayout>

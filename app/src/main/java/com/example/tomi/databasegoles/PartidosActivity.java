@@ -8,11 +8,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import com.example.tomi.databasegoles.DBHandler.DatabaseManager;
 import com.example.tomi.databasegoles.DBHandler.PartidoHandler;
@@ -123,18 +126,66 @@ public class PartidosActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.partido_layout_list, parent, false);
             }
             RobotoTextView tvRival = (RobotoTextView) convertView.findViewById(R.id.tvRival);
             RobotoTextView tvCompetencia = (RobotoTextView) convertView.findViewById(R.id.tvCompetencia);
             RobotoTextView tvGoles = (RobotoTextView) convertView.findViewById(R.id.tvGoles);
-            Partido partido = partidos.get(position);
+            ImageView ivEditar = (ImageView) convertView.findViewById(R.id.ivEditar);
+            final Partido partido = partidos.get(position);
             tvRival.setText(partido.getRival());
             tvCompetencia.setText(partido.getCompetencia());
             tvGoles.setText(partido.getGoles());
-            return convertView;
+            ivEditar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    switch (v.getId()) {
+                        case R.id.ivEditar:
+
+                            PopupMenu popup = new PopupMenu(getApplicationContext(), v);
+                            popup.getMenuInflater().inflate(R.menu.popupmenu,
+                                    popup.getMenu());
+                            popup.show();
+                            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem item) {
+
+                                    switch (item.getItemId()) {
+                                        case R.id.Editar:
+                                            updatePartido(position);
+                                            TastyToast.makeText(getApplicationContext(), "Editar", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                                            onResume();
+
+                                            break;
+                                        case R.id.Borrar:
+                                            PartidoHandler.delete(partido);
+                                            TastyToast.makeText(getApplicationContext(), "Borrar", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                                            onResume();
+                                            break;
+
+                                        default:
+                                            break;
+                                    }
+
+                                    return true;
+                                }
+                            });
+
+                            break;
+
+                        default:
+                            break;
+                    }
+
+
+                }
+            });
+
+        return convertView;
         }
     }
     private void updateListView() {
@@ -175,6 +226,13 @@ public class PartidosActivity extends AppCompatActivity {
         cursor.close();
         DatabaseManager.getInstance().closeDatabase();
         return TotalGoles;
+
+    }
+    public void updatePartido(int index) {
+        Partido partido = partidos.get(index);
+        Intent intent = new Intent(this, PopUp2.class);
+        intent.putExtra("partido_obj", partido);
+        startActivity(intent);
 
     }
 

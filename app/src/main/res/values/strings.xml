@@ -6,7 +6,7 @@
     <string name="hint_rival">Rival</string>
     <string name="hint_competencia">Competencia</string>
     <string name="hint_goles">Goles Anotados</string>
-    <string name="btn_agregar">AGREGAR</string>
+    <string name="btn_agregar">GUARDAR</string>
     <string name="err_msg_año">Escribi año o temporada</string>
     <string name="err_msg_meta">¡ Establece tu meta !</string>
     <string name="err_msg_meta_number">¡ La meta solo pueden ser numeros. !</string>

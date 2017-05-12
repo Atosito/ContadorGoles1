@@ -55,9 +55,10 @@
                 android:id="@+id/tvCompetencia"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:text="Competencia"
                 android:textAlignment="center"
+                android:textSize="14dp"
                 app:typeface="roboto_medium" />
 
             <Space
@@ -75,6 +76,11 @@
                 android:text="Goles"
                 android:textAlignment="center"
                 app:typeface="roboto_medium" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.23" />
         </LinearLayout>
 
         <ListView

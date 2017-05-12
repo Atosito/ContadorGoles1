@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.tomi.databasegoles.DBHandler.TemporadaHandler;
+import com.example.tomi.databasegoles.Data.Partido;
 import com.example.tomi.databasegoles.Data.Temporada;
 import com.sdsmdg.tastytoast.TastyToast;
 
@@ -24,7 +26,9 @@ import com.sdsmdg.tastytoast.TastyToast;
 public class PopUp1 extends AppCompatActivity {
     private EditText inputAño, inputMeta, inputPassword;
     private TextInputLayout inputLayoutAño, inputLayoutMeta;
+    private Temporada temp;
     private Button btnAgregar;
+    private TemporadaHandler temporadaHandler = new TemporadaHandler();
     @Override
     protected void onCreate (Bundle savedInstanceState) {
 
@@ -47,12 +51,18 @@ public class PopUp1 extends AppCompatActivity {
 
         inputAño.addTextChangedListener(new MyTextWatcher(inputAño));
         inputMeta.addTextChangedListener(new MyTextWatcher(inputMeta));
-
+        checkIntent();
 
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submitForm();
+                if (temp == null) {
+                    submitForm();
+                    setDataModels();
+                } else {
+                    submitForm();
+                    saveTemporada();
+                }
             }
         });
     }
@@ -78,7 +88,29 @@ public class PopUp1 extends AppCompatActivity {
             return;
         }
 
-        setDataModels();
+    }
+    public void saveTemporada(){
+        final String año = inputAño.getText().toString();
+        final String meta = inputMeta.getText().toString();
+
+        Temporada temporada = new Temporada();
+        temporada.set_id(temp.get_id());
+        temporada.setAño(año);
+        temporada.setMeta(meta);
+        temporadaHandler.edit(temporada);
+        finish();
+    }
+    private void checkIntent() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            temp = (Temporada) bundle.get("temporada_");
+            if (temp != null) {
+                this.temp.get_id();
+                this.inputAño.setText(temp.getAño());
+                this.inputMeta.setText(temp.getMeta());
+            }
+        }
     }
 
     private boolean validateAño() {

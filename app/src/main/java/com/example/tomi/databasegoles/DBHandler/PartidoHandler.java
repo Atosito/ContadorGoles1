@@ -42,8 +42,26 @@ public class PartidoHandler {
 
         return courseId;
     }
-    public int delete(){
-        return 2;
+    public int delete(Partido partido){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        int courseId;
+        courseId = (int) db.delete(Partido.TABLE_NAME, "_id =?", new String[]{partido.get_id()});
+        DatabaseManager.getInstance().closeDatabase();
+
+        return courseId;
+
+    }
+    public int edit(Partido partido){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        int courseId;
+        ContentValues values = new ContentValues();
+        values.put(Partido.KEY_RIVAL, partido.getRival());
+        values.put(Partido.KEY_COMPETENCIA, partido.getCompetencia());
+        values.put(Partido.KEY_GOLES, partido.getGoles());
+        courseId = (int) db.update(Partido.TABLE_NAME, values, "_id =?", new String[]{partido.get_id()});
+        DatabaseManager.getInstance().closeDatabase();
+
+        return courseId;
     }
 
 }

@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.tomi.databasegoles.DBHandler.PartidoHandler;
 import com.example.tomi.databasegoles.Data.Partido;
 import com.example.tomi.databasegoles.Data.Temporada;
 import com.example.tomi.databasegoles.Widget.RobotoTextView;
@@ -27,6 +28,7 @@ public class PopUp2 extends AppCompatActivity {
     private RobotoTextView tvAño;
     private TextInputLayout inputLayoutRival, inputLayoutCompetencia, inputLayoutGoles;
     private Button btnAgregar;
+    private PartidoHandler partidoHandler = new PartidoHandler();
     @Override
     protected void onCreate (Bundle savedInstanceState) {
 
@@ -57,7 +59,14 @@ public class PopUp2 extends AppCompatActivity {
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submitForm();
+                if (part == null) {
+                    submitForm();
+                    setDataModels();
+                } else {
+                   submitForm();
+                    savePartido();
+                }
+
             }
         });
     }
@@ -67,7 +76,11 @@ public class PopUp2 extends AppCompatActivity {
         if (bundle != null) {
             part = (Partido) bundle.get("partido_obj");
             if (part != null) {
+                this.part.get_id();
                 this.tvAño.setText(part.getAño());
+                this.inputRival.setText(part.getRival());
+                this.inputCompetencia.setText(part.getCompetencia());
+                this.inputGoles.setText(part.getGoles());
             }
         }
     }
@@ -88,6 +101,21 @@ public class PopUp2 extends AppCompatActivity {
         finish();
 
     }
+    public void savePartido(){
+        final String rival = inputRival.getText().toString();
+        final String competencia = inputCompetencia.getText().toString();
+        final String goles = inputGoles.getText().toString();
+        final String año = tvAño.getText().toString();
+
+        Partido partido = new Partido();
+        partido.set_id(part.get_id());
+        partido.setRival(rival);
+        partido.setCompetencia(competencia);
+        partido.setGoles(goles);
+        partido.setAño(año);
+        partidoHandler.edit(partido);
+        finish();
+    }
     private void submitForm() {
         if (!validateRival()) {
             return;
@@ -100,7 +128,6 @@ public class PopUp2 extends AppCompatActivity {
             return;
         }
 
-        setDataModels();
     }
 
     private boolean validateRival() {
