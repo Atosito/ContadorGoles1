@@ -11,6 +11,8 @@ App android Nativa que tiene como objetivo llevar un conteo de los goles anotado
 SQLite
 
 # Interfaz de Usuario:
+![alt text](https://github.com/toomi17/ContadorGoles1/blob/master/mainact.jpg) ![alt text](https://github.com/toomi17/ContadorGoles1/blob/master/popup1.jpg) 
+![alt text](https://github.com/toomi17/ContadorGoles1/blob/master/partact.jpg) ![alt text](https://github.com/toomi17/ContadorGoles1/blob/master/popup2.jpg) 
 
 
 
