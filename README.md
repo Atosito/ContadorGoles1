@@ -10,3 +10,7 @@ App android Nativa que tiene como objetivo llevar un conteo de los goles anotado
 
 SQLite
 
+# Interfaz de Usuario:
+
+
+
