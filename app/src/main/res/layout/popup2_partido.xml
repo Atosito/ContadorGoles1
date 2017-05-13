@@ -34,6 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:hint="@string/hint_rival"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
                 />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -47,6 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:hint="@string/hint_competencia"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
                 />
         </android.support.design.widget.TextInputLayout>
 

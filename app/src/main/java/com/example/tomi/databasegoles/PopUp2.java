@@ -23,7 +23,7 @@ import com.sdsmdg.tastytoast.TastyToast;
  */
 
 public class PopUp2 extends AppCompatActivity {
-    private Partido part;
+    private Partido part,par;
     private EditText inputRival, inputCompetencia, inputGoles;
     private RobotoTextView tvAño;
     private TextInputLayout inputLayoutRival, inputLayoutCompetencia, inputLayoutGoles;
@@ -51,6 +51,7 @@ public class PopUp2 extends AppCompatActivity {
         tvAño = (RobotoTextView) findViewById(R.id.tvAño);
         btnAgregar = (Button) findViewById(R.id.btn_agregar);
         checkIntent();
+        checkAño();
         inputRival.addTextChangedListener(new MyTextWatcher(inputRival));
         inputCompetencia.addTextChangedListener(new MyTextWatcher(inputCompetencia));
         inputGoles.addTextChangedListener(new MyTextWatcher(inputGoles));
@@ -59,13 +60,8 @@ public class PopUp2 extends AppCompatActivity {
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (part == null) {
-                    submitForm();
-                    setDataModels();
-                } else {
+
                    submitForm();
-                    savePartido();
-                }
 
             }
         });
@@ -77,10 +73,21 @@ public class PopUp2 extends AppCompatActivity {
             part = (Partido) bundle.get("partido_obj");
             if (part != null) {
                 this.part.get_id();
-                this.tvAño.setText(part.getAño());
                 this.inputRival.setText(part.getRival());
                 this.inputCompetencia.setText(part.getCompetencia());
                 this.inputGoles.setText(part.getGoles());
+            }
+        }
+    }
+    private void checkAño() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            par = (Partido) bundle.get("partidoobj");
+            if (par != null) {
+
+                this.tvAño.setText(par.getAño());
+
             }
         }
     }
@@ -96,7 +103,7 @@ public class PopUp2 extends AppCompatActivity {
         partido.setGoles(goles);
         partido.setAño(año);
         Intent intent = getIntent();
-        intent.putExtra("partido_obj", partido);
+        intent.putExtra("partidoobj", partido);
         setResult(RESULT_OK, intent);
         finish();
 
@@ -127,7 +134,12 @@ public class PopUp2 extends AppCompatActivity {
         if (!validateGoles()) {
             return;
         }
-
+        if (part == null) {
+            setDataModels();
+        }
+        else {
+            savePartido();
+        }
     }
 
     private boolean validateRival() {

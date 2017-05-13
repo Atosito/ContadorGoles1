@@ -195,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
     }
     private void updateListView() {
         this.temporadas = getTemporadas();
-
         Adapter adapter = new Adapter(this, temporadas);
         this.listView.setAdapter(adapter);
     }

@@ -63,6 +63,7 @@ public class PartidosActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         updateListView();
+        checkIntent();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -70,7 +71,7 @@ public class PartidosActivity extends AppCompatActivity {
 
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK) {
-                Partido partido = (Partido) data.getSerializableExtra("partido_obj");
+                Partido partido = (Partido) data.getSerializableExtra("partidoobj");
                 int CourseId = PartidoHandler.insert(partido);
                 if(CourseId != -1){
                     TastyToast.makeText(getApplicationContext(), "Partido Agregado", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
@@ -89,7 +90,7 @@ public class PartidosActivity extends AppCompatActivity {
         Partido partido = new Partido();
         String año = tvAño.getText().toString();
         partido.setAño(año);
-        intent.putExtra("partido_obj", partido);
+        intent.putExtra("partidoobj", partido);
         startActivityForResult(intent, 1);
 
     }
@@ -219,9 +220,11 @@ public class PartidosActivity extends AppCompatActivity {
         cursor.moveToFirst();
         int TotalGoles = 0;
         while (!cursor.isAfterLast()) {
-
-            TotalGoles += Integer.parseInt(cursor.getString(0));
-            cursor.moveToNext();
+           if(cursor.getString(0).isEmpty()){cursor.moveToNext();}
+            else {
+               TotalGoles += Integer.parseInt(cursor.getString(0));
+               cursor.moveToNext();
+           }
         }
         cursor.close();
         DatabaseManager.getInstance().closeDatabase();

@@ -88,9 +88,10 @@
         <ImageView
             android:id="@+id/ivEditar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.33"
+            android:layout_height="match_parent"
+            android:layout_weight="0.43"
             android:adjustViewBounds="false"
+            android:cropToPadding="false"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_menu_list" />
 
